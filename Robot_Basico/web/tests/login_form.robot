@@ -6,6 +6,7 @@ Test Teardown   Encerra sessão
 
 *** Test Cases ***
 Login com sucesso
+    [tags]          login_correto
     Go To           ${url}/login
     Login With      stark       jarvis!
 
@@ -15,7 +16,7 @@ Senha inválida
     [tags]          login_error
     Go To           ${url}/login
     Login With      stark       123
-
+    
     Should Contain Login Alert      Senha é invalida!
 
 Usuário não existe
