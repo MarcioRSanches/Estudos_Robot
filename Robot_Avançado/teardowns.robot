@@ -45,12 +45,12 @@ Essa keyword fará o teste falhar, não executando as keywords abaixo!
     Fail                msg=Estou forçando meu teste a falhar!
 
 Esse aqui também vai passar com uma condição e vai parar de executar as keywords abaixo!
-    ${STATUS}   Run Keyword And Return Status   Should Be True    "May" == "May"
+    ${STATUS}   Run Keyword And Return Status   Should Be True    "Sanches" == "Sanches"
     Log  ${STATUS}
-    Pass Execution If    ${STATUS}    message=May é igual a May, então passou!!
+    Pass Execution If    ${STATUS}    message=Sanches é igual a Sanches, então passou!!
 
 Esse keyword vai passar sozinha!
-    Should Be True    "May" == "May"
+    Should Be True    "Sanches" == "Sanches"
 
 Esse keyword vai falhar sozinha!
-    Should Be True    "May" == "João"
+    Should Be True    "Sanches" == "João"
