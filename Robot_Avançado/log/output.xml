@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 3.1.2 (Python 3.8.2 on win32)" generated="20200517 17:36:39.922" rpa="false">
+<robot generator="Robot 3.1.2 (Python 3.8.2 on win32)" generated="20200517 17:59:51.490" rpa="false">
 <suite id="s1" name="Database" source="C:\Estudos\RobotFramework\Estudos_Robot\Robot_Avançado\database.robot">
-<test id="s1-t1" name="Exemplo 03: Select Statement">
+<test id="s1-t1" name="Exemplo 04: Limpando Tabelas">
 <kw name="Conectar no Banco de Dados" type="setup">
 <kw name="Connect To Database" library="DatabaseLibrary">
 <doc>Loads the DB API 2.0 module given `dbapiModuleName` then uses it to
@@ -14,68 +14,63 @@ connect to the database using `dbName`, `dbUsername`, and `dbPassword`.</doc>
 <arg>dbHost=localhost</arg>
 <arg>dbPort=5432</arg>
 </arguments>
-<msg timestamp="20200517 17:36:39.974" level="INFO">Connecting using : psycopg2.connect(database=robot, user=postgres, password=postgres, host=localhost, port=5432) </msg>
-<status status="PASS" starttime="20200517 17:36:39.958" endtime="20200517 17:36:40.014"></status>
+<msg timestamp="20200517 17:59:51.554" level="INFO">Connecting using : psycopg2.connect(database=robot, user=postgres, password=postgres, host=localhost, port=5432) </msg>
+<status status="PASS" starttime="20200517 17:59:51.530" endtime="20200517 17:59:51.606"></status>
 </kw>
-<status status="PASS" starttime="20200517 17:36:39.958" endtime="20200517 17:36:40.014"></status>
+<status status="PASS" starttime="20200517 17:59:51.530" endtime="20200517 17:59:51.606"></status>
 </kw>
-<kw name="Executar query no Banco de dados">
+<kw name="Limpar Tabela">
 <arguments>
-<arg>SELECT * from account</arg>
+<arg>account</arg>
+</arguments>
+<kw name="Row Count" library="DatabaseLibrary">
+<doc>Uses the input `selectStatement` to query the database and returns the number of rows from the query. Set
+optional input `sansTran` to True to run command without an explicit transaction commit or rollback.</doc>
+<arguments>
+<arg>selectStatement=SELECT * FROM ${TABELA}</arg>
 </arguments>
 <assign>
-<var>${RESPOSTA_SELECT}</var>
+<var>${REGISTROS}</var>
 </assign>
-<kw name="Query" library="DatabaseLibrary">
-<doc>Uses the input `selectStatement` to query for the values that will be returned as a list of tuples. Set optional
-input `sansTran` to True to run command without an explicit transaction commit or rollback.
-Set optional input `returnAsDict` to True to return values as a list of dictionaries.</doc>
-<arguments>
-<arg>selectStatement=${QUERY}</arg>
-</arguments>
-<assign>
-<var>${RESPONSE_QUERY}</var>
-</assign>
-<msg timestamp="20200517 17:36:40.014" level="INFO">Executing : Query  |  SELECT * from account </msg>
-<msg timestamp="20200517 17:36:40.018" level="INFO">${RESPONSE_QUERY} = [(2, 'Luiz Silva', 'robot987', 'robotizando2@robot.com')]</msg>
-<status status="PASS" starttime="20200517 17:36:40.014" endtime="20200517 17:36:40.018"></status>
+<msg timestamp="20200517 17:59:51.606" level="INFO">Executing : Row Count  |  SELECT * FROM account </msg>
+<msg timestamp="20200517 17:59:51.610" level="INFO">${REGISTROS} = 0</msg>
+<status status="PASS" starttime="20200517 17:59:51.606" endtime="20200517 17:59:51.610"></status>
 </kw>
-<msg timestamp="20200517 17:36:40.018" level="INFO">${RESPOSTA_SELECT} = [(2, 'Luiz Silva', 'robot987', 'robotizando2@robot.com')]</msg>
-<status status="PASS" starttime="20200517 17:36:40.014" endtime="20200517 17:36:40.018"></status>
-</kw>
-<kw name="Log" library="BuiltIn">
-<doc>Logs the given message with the given level.</doc>
+<kw name="Run Keyword If" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
 <arguments>
-<arg>${RESPOSTA_SELECT}</arg>
+<arg>${REGISTROS} &gt; 0</arg>
+<arg>Delete All Rows From Table</arg>
+<arg>${TABELA}</arg>
 </arguments>
-<msg timestamp="20200517 17:36:40.018" level="INFO">[(2, 'Luiz Silva', 'robot987', 'robotizando2@robot.com')]</msg>
-<status status="PASS" starttime="20200517 17:36:40.018" endtime="20200517 17:36:40.018"></status>
+<status status="PASS" starttime="20200517 17:59:51.610" endtime="20200517 17:59:51.610"></status>
 </kw>
-<kw name="Log" library="BuiltIn">
-<doc>Logs the given message with the given level.</doc>
-<arguments>
-<arg>Usuário ${RESPOSTA_SELECT[0][0]} - Nome: ${RESPOSTA_SELECT[0][1]} - E-mail: ${RESPOSTA_SELECT[0][3]}</arg>
-</arguments>
-<msg timestamp="20200517 17:36:40.018" level="INFO">Usuário 2 - Nome: Luiz Silva - E-mail: robotizando2@robot.com</msg>
-<status status="PASS" starttime="20200517 17:36:40.018" endtime="20200517 17:36:40.018"></status>
+<status status="PASS" starttime="20200517 17:59:51.606" endtime="20200517 17:59:51.610"></status>
 </kw>
-<kw name="Log" library="BuiltIn">
-<doc>Logs the given message with the given level.</doc>
+<kw name="Executar script via STRING no Banco de Dados">
 <arguments>
-<arg>Usuário ${RESPOSTA_SELECT[1][0]} - Nome: ${RESPOSTA_SELECT[1][1]} - E-mail: ${RESPOSTA_SELECT[1][3]}</arg>
+<arg>DROP table account</arg>
 </arguments>
-<msg timestamp="20200517 17:36:40.022" level="FAIL">Resolving variable '${RESPOSTA_SELECT[1][0]}' failed: IndexError: list index out of range</msg>
-<status status="FAIL" starttime="20200517 17:36:40.022" endtime="20200517 17:36:40.022"></status>
+<kw name="Execute Sql String" library="DatabaseLibrary">
+<doc>Executes the sqlString as SQL commands. Useful to pass arguments to your sql. Set optional input `sansTran` to
+True to run command without an explicit transaction commit or rollback.</doc>
+<arguments>
+<arg>sqlString=${SCRIPT}</arg>
+</arguments>
+<msg timestamp="20200517 17:59:51.610" level="INFO">Executing : Execute SQL String  |  DROP table account </msg>
+<status status="PASS" starttime="20200517 17:59:51.610" endtime="20200517 17:59:51.630"></status>
+</kw>
+<status status="PASS" starttime="20200517 17:59:51.610" endtime="20200517 17:59:51.630"></status>
 </kw>
 <kw name="Desconectar do Banco de Dados" type="teardown">
 <kw name="Disconnect From Database" library="DatabaseLibrary">
 <doc>Disconnects from the database.</doc>
-<msg timestamp="20200517 17:36:40.022" level="INFO">Executing : Disconnect From Database</msg>
-<status status="PASS" starttime="20200517 17:36:40.022" endtime="20200517 17:36:40.022"></status>
+<msg timestamp="20200517 17:59:51.634" level="INFO">Executing : Disconnect From Database</msg>
+<status status="PASS" starttime="20200517 17:59:51.634" endtime="20200517 17:59:51.634"></status>
 </kw>
-<status status="PASS" starttime="20200517 17:36:40.022" endtime="20200517 17:36:40.022"></status>
+<status status="PASS" starttime="20200517 17:59:51.634" endtime="20200517 17:59:51.634"></status>
 </kw>
-<status status="FAIL" starttime="20200517 17:36:39.958" endtime="20200517 17:36:40.022" critical="yes">Resolving variable '${RESPOSTA_SELECT[1][0]}' failed: IndexError: list index out of range</status>
+<status status="PASS" starttime="20200517 17:59:51.530" endtime="20200517 17:59:51.634" critical="yes"></status>
 </test>
 <doc>[14/10/2019] https://franz-see.github.io/Robotframework-Database-Library/api/1.2.2/DatabaseLibrary.html
 Instale: "pip install -U robotframework-databaselibrary"
@@ -85,17 +80,17 @@ Para SQLite 3: não precisa instalar nada!
 Para MySQL: "pip install pymysql"
 Para SQL Server: "pip install pymssql"
 Para Oracle: "pip install cx-Oracle"</doc>
-<status status="FAIL" starttime="20200517 17:36:39.926" endtime="20200517 17:36:40.022"></status>
+<status status="PASS" starttime="20200517 17:59:51.494" endtime="20200517 17:59:51.634"></status>
 </suite>
 <statistics>
 <total>
-<stat pass="0" fail="1">Critical Tests</stat>
-<stat pass="0" fail="1">All Tests</stat>
+<stat pass="1" fail="0">Critical Tests</stat>
+<stat pass="1" fail="0">All Tests</stat>
 </total>
 <tag>
 </tag>
 <suite>
-<stat pass="0" fail="1" id="s1" name="Database">Database</stat>
+<stat pass="1" fail="0" id="s1" name="Database">Database</stat>
 </suite>
 </statistics>
 <errors>

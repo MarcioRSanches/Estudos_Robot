@@ -19,7 +19,7 @@ Exemplo 01: Executando scripts SQL via Arquivos
 
 Exemplo 02: Executando scripts SQL via STRING
     Executar script via STRING no Banco de Dados        INSERT INTO public.account(user_id, username, password, email) VALUES (2, 'Luiz Silva', 'robot987', 'robotizando2@robot.com')
-    Confere se "Luiz Silva" foi inserido com sucesso
+    Confere se "Hilda Vasconcelos" foi inserido com sucesso
 
 Exemplo 03: Select Statement
     ${RESPOSTA_SELECT}      Executar query no Banco de dados    SELECT * from account
