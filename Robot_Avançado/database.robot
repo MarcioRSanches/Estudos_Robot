@@ -15,7 +15,7 @@ Test Teardown   Desconectar do Banco de Dados
 Exemplo 01: Executando scripts SQL via Arquivos
     Executar script via ARQUIVO no Banco de Dados       ${CURDIR}/my_sql_scripts/create_table_accounts.sql
     Executar script via ARQUIVO no Banco de Dados       ${CURDIR}/my_sql_scripts/insert_into_account.sql
-    Confere se "May Fernandes" foi inserido com sucesso
+    Confere se "Marcio Sanches" foi inserido com sucesso
 
 Exemplo 02: Executando scripts SQL via STRING
     Executar script via STRING no Banco de Dados        INSERT INTO public.account(user_id, username, password, email) VALUES (2, 'Luiz Silva', 'robot987', 'robotizando2@robot.com')
