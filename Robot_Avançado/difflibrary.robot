@@ -16,4 +16,4 @@ Lendo o conteúdo
     Log    ${SEGUNDO_ARQ}
 
 Compara arquivos
-    Diff Files        ${PRIMEIRO_ARQ}        ${SEGUNDO_ARQ}       faild:True  
+    Diff Files        ${PRIMEIRO_ARQ}        ${SEGUNDO_ARQ}  
